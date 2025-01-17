@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node ./dist/merge.js\"",
+    "debug": "node --inspect ./dist/merge.js\"",
     "build": "tsc",
     "bs": "npm run build && npm start"
   },

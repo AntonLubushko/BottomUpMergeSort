@@ -24,21 +24,69 @@ function mergeSorted(arr1: Array<number>, arr2: Array<number>) {
   return mergedArr;
 }
 
-let arr: number[] = Array.from({ length: Math.floor(Math.random() * 20) }, () =>
+function sort(arr: Array<number>): Array<number> {
+  let iteration = 0;
+  let ordinaryArraysAmount = arr.length; // in the beginning
+  let ordinaryArrayLength = 1;
+  let tailArrayLength = 0;
+  while (iteration++ < Math.log2(arr.length)) {
+    // case 1: even and without a tail
+    if (ordinaryArraysAmount % 2 === 0 && tailArrayLength === 0) {
+      arr = sortEvenWithoutTail(arr, ordinaryArraysAmount, ordinaryArrayLength);
+      ordinaryArraysAmount = Math.floor(ordinaryArraysAmount / 2);
+      ordinaryArrayLength *= 2;
+      tailArrayLength = arr.length - ordinaryArraysAmount * ordinaryArrayLength;
+      continue;
+    }
+
+    // case 2: odd and without a tail
+    if (ordinaryArraysAmount % 2 === 1 && tailArrayLength === 0) {
+      arr = sortOddWithoutTail(arr, ordinaryArrayLength, tailArrayLength);
+      console.log("inside case 2", tailArrayLength);
+    }
+  }
+
+  return arr;
+}
+
+function sortEvenWithoutTail(
+  arr: number[],
+  ordinaryArraysAmount: number,
+  ordinaryArrayLength: number
+): number[] {
+  let resultArr: Array<number> = [];
+  for (
+    let indexPoint = 0;
+    indexPoint < ordinaryArraysAmount * ordinaryArrayLength;
+    indexPoint += 2 * ordinaryArrayLength
+  ) {
+    let arrFirst = arr.slice(indexPoint, indexPoint + ordinaryArrayLength);
+    let arrSecond = arr.slice(
+      indexPoint + ordinaryArrayLength,
+      indexPoint + 2 * ordinaryArrayLength
+    );
+    let mergedArray = mergeSorted(arrFirst, arrSecond);
+    resultArr = resultArr.concat(mergedArray);
+  }
+
+  return resultArr;
+}
+
+function sortOddWithoutTail(
+  arr: number[],
+  ordinaryArraysAmount: number,
+  tailArrayLength: number
+): number[] {
+  return arr;
+}
+
+let arr: number[] = Array.from({ length: 8 }, () =>
   Math.floor(Math.random() * 100)
 ); // массив из случайных чисел
 
-function sort(arr: Array<number>) {
-  let iteration = 0;
-  let len = 1;
-  let resultArr: Array<number> = [];
-  while (iteration < 10) {
-    for (let j = 0; j < arr.length; j++) {
-      let arrFirst = arr.slice(j, j + len);
-      let arrSecond = arr.slice(j + len, j + 2 * len);
-    }
-  }
-}
+console.log("Initial arrray ", arr);
+let res = sort(arr);
+console.log(res);
 
 /**
 let a1: number[] = Array.from({ length: Math.floor(Math.random() * 20) }, () =>
