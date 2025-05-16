@@ -1,12 +1,12 @@
 {
-  "name": "rabbitmq-project",
+  "name": "Bottom-up-merge-sort",
   "version": "1.0.0",
   "description": "A Node.js project with RabbitMQ dependency",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node ./dist/merge.js\"",
-    "debug": "node --inspect ./dist/merge.js\"",
+    "start": "node ./dist/index.js\"",
+    "debug": "node --inspect ./dist/index.js\"",
     "build": "tsc",
     "bs": "npm run build && npm start"
   },

@@ -164,40 +164,18 @@ function sortOddWithTail(
   return resultArr;
 }
 
-let arr: number[] = Array.from({ length: 100000 }, () =>
-  Math.floor(Math.random() * 100)
-); // массив из случайных чисел
+function arraysEqual(a: number[], b: number[]) {
+  if (a.length !== b.length) {
+    console.log("lengths ", a.length, " ", b.length);
+    return false;
+  }
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) {
+      console.log(a[i], " ", b[i]);
+      return false;
+    }
+  }
+  return true;
+}
 
-console.warn(`Array length ${arr.length}`);
-let start = performance.now();
-let res = arr.sort();
-let end = performance.now();
-console.log(`Prototype sort Execution time: ${(end - start).toFixed(3)} ms`);
-
-start = performance.now();
-res = sort(arr);
-end = performance.now();
-console.log(`Fon Neiman sort Execution time: ${(end - start).toFixed(3)} ms`);
-
-/**
-let a1: number[] = Array.from({ length: Math.floor(Math.random() * 20) }, () =>
-  Math.floor(Math.random() * 100)
-); // массив из случайных чисел
-let a2: number[] = Array.from({ length: Math.floor(Math.random() * 20) }, () =>
-  Math.floor(Math.random() * 100)
-); // массив из случайных чисел
-
-a2 = [2];
-a1 = [1];
-a1.sort((a, b) => a - b); // сортировка массива a2
-a2.sort((a, b) => a - b); // сортировка массива a2
-
-console.log("a1:", a1);
-console.log("a2:", a2);
-
-const start = performance.now();
-let result = mergeSorted(a1, a2);
-const end = performance.now();
-console.log(`Execution time: ${(end - start).toFixed(3)} ms`);
-console.log(result);
- */
+export { sort, arraysEqual };
